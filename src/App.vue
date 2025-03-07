@@ -66,7 +66,7 @@ class Router {
     listerPopState () {  
         window.addEventListener('popstate' , e => {  
             const path = e.state && e.state.path;  // 获取历史记录中的路径
-            this.routers[path] && this.routers[path]()  // 执行对应的路由回调
+            this.routes[path] && this.routes[path]()  // 执行对应的路由回调
         })  
     }  
 }  
@@ -74,7 +74,8 @@ class Router {
 // 使用示例
 window.miniRouter = new Router();  // 创建路由实例
 miniRouter.route('/', ()=> console.log('page1'))  // 注册首页路由
-miniRouter.route('/page2', ()=> console.log('page2'
+miniRouter.route('/page2', ()=> console.log('page2'))  // 注册页面2路由
+
   
 // 跳转  
 // miniRouter.push('/page2')  // page2  
