@@ -28,46 +28,53 @@ import HelloWorld from './components/HelloWorld.vue'
 // window.miniRouter = new Router();  
 // miniRouter.route('/', () => console.log('page1'))  
 // miniRouter.route('/page2', () => console.log('page2'))  
-  
-// // miniRouter.push('/') // page1  
 // miniRouter.push('/page2') // page2  
 
 
+
+
+
+
+
 // HISTORY ROUTER
-// 定义 Router  
+// History API 路由实现
 class Router {  
+    // 存储路由路径和对应的回调函数
     constructor () {  
-        this.routes = {};  
-        this.listerPopState()  
+        this.routes = {};  // 路由映射表：path -> callback
+        this.listerPopState()  // 监听浏览器前进/后退事件
     }  
       
+    // 初始化路由状态，用于首次访问
     init(path) {  
-        history.replaceState({path: path}, null, path);  
-        this.routes[path] && this.routes[path]();  
+        history.replaceState({path: path}, null, path);  // 替换当前历史记录
+        this.routes[path] && this.routes[path]();  // 执行路由回调
     }  
       
+    // 注册路由和对应的回调函数
     route(path, callback){  
-        this.routes[path] = callback;  
+        this.routes[path] = callback;
     }  
       
+    // 路由跳转方法
     push(path) {  
-        history.pushState({path: path}, null, path);  
-        this.routes[path] && this.routes[path]();  
+        history.pushState({path: path}, null, path);  // 向历史记录添加新状态
+        this.routes[path] && this.routes[path]();  // 执行路由回调
     }  
       
+    // 监听浏览器前进/后退事件
     listerPopState () {  
         window.addEventListener('popstate' , e => {  
-            const path = e.state && e.state.path;  
-            this.routers[path] && this.routers[path]()  
+            const path = e.state && e.state.path;  // 获取历史记录中的路径
+            this.routers[path] && this.routers[path]()  // 执行对应的路由回调
         })  
     }  
 }  
-  
-// 使用 Router  
-  
-window.miniRouter = new Router();  
-miniRouter.route('/', ()=> console.log('page1'))  
-miniRouter.route('/page2', ()=> console.log('page2'))  
+
+// 使用示例
+window.miniRouter = new Router();  // 创建路由实例
+miniRouter.route('/', ()=> console.log('page1'))  // 注册首页路由
+miniRouter.route('/page2', ()=> console.log('page2'
   
 // 跳转  
 // miniRouter.push('/page2')  // page2  
